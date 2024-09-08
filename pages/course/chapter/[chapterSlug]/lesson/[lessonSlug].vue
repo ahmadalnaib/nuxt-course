@@ -14,6 +14,21 @@ const lesson=computed(()=>{
   )
 })
 
+
+const title=computed(()=>{
+  return `${lesson.value.title} - ${chapter.value.title} - ${course.title}`
+})
+useHead({
+  title,
+  meta:[
+    {
+      hid:'description',
+      name:'description',
+      content:lesson.value.text
+    }
+  ]
+})
+
 </script>
 
 
