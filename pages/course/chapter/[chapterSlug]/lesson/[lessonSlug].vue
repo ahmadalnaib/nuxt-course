@@ -29,9 +29,8 @@ useHead({
   ]
 })
 
-const progress=useState('progress',() =>{
-  return [];
-})
+const progress=useLocalStorage('progress',[])
+
 
 
 const isLessonComplete=computed(()=>{
@@ -81,6 +80,7 @@ const toggleComplete=() =>{
     </div>
     <VideoPlayer :videoId="lesson.videoId" />
     <p class="mb-5">{{ lesson.text }}</p>
+    
     <LessonCompleteButton  :modelValue="isLessonComplete" @update:modelValue="toggleComplete"/>
   </div>
 </template>
