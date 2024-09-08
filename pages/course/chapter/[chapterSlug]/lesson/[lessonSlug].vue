@@ -29,6 +29,31 @@ useHead({
   ]
 })
 
+const progress=useState('progress',() =>{
+  return [];
+})
+
+
+const isLessonComplete=computed(()=>{
+  if(!progress.value[chapter.value.number -1]){
+    return false
+  }
+
+  if(!progress.value[chapter.value.number -1][lesson.value.number -1]){
+    return false
+  }
+
+  return progress.value[chapter.value.number -1][lesson.value.number -1]
+})
+
+const toggleComplete=() =>{
+  if(!progress.value[chapter.value.number -1]){
+    progress.value[chapter.value.number -1]=[]
+  }
+
+  progress.value[chapter.value.number -1][lesson.value.number -1]=!isLessonComplete.value
+}
+
 </script>
 
 
@@ -55,6 +80,7 @@ useHead({
       </NuxtLink>
     </div>
     <VideoPlayer :videoId="lesson.videoId" />
-    <p>{{ lesson.text }}</p>
+    <p class="mb-5">{{ lesson.text }}</p>
+    <LessonCompleteButton  :modelValue="isLessonComplete" @update:modelValue="toggleComplete"/>
   </div>
 </template>
