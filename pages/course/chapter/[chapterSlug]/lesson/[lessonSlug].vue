@@ -8,11 +8,25 @@ const chapter=computed(()=>{
   )
 })
 
+if(!chapter.value){
+ throw createError({
+    statusCode:404,
+    message:'Chapter not found'
+ })
+}
+
 const lesson=computed(()=>{
   return chapter.value.lessons.find(
     (lesson)=>lesson.slug===route.params.lessonSlug
   )
 })
+
+if(!lesson.value){
+  throw createError({
+    statusCode:404,
+    message:'Lesson not found'
+  })
+}
 
 
 const title=computed(()=>{
@@ -81,6 +95,10 @@ const toggleComplete=() =>{
     <VideoPlayer :videoId="lesson.videoId" />
     <p class="mb-5">{{ lesson.text }}</p>
     
-    <LessonCompleteButton  :modelValue="isLessonComplete" @update:modelValue="toggleComplete"/>
+    <LessonCompleteButton  :modelValue="isLessonComplete" @update:modelValue="
+    throw createError('Could not updated');
+    "
+    />
   </div>
 </template>
+
